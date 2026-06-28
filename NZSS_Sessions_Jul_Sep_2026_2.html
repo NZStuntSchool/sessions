@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NZ Stunt School — Upcoming Sessions Jul–Sep 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black:   #0a0a0a;
+    --dark:    #111111;
+    --card:    #161616;
+    --gold:    #C9972A;
+    --gold-lt: #E8B84B;
+    --gold-dk: #8B6510;
+    --white:   #F5F0E8;
+    --grey:    #777;
+    --green:   #4a7c59;
+  }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #0a0a0a 60%, #1a1200 100%);
+    border-bottom: 2px solid var(--gold-dk);
+    padding: 40px 40px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: 'NZSS';
+    position: absolute; right: -10px; top: -10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 160px; font-weight: 900;
+    color: rgba(201,151,42,0.05);
+    line-height: 1; pointer-events: none; user-select: none;
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--gold); color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 12px;
+    letter-spacing: 2px; padding: 4px 12px;
+    margin-bottom: 14px; text-transform: uppercase;
+  }
+  header h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(30px, 5vw, 58px);
+    font-weight: 900; line-height: 1;
+    text-transform: uppercase; letter-spacing: -1px;
+  }
+  header h1 span { color: var(--gold); }
+  header p { margin-top: 10px; font-size: 14px; color: #999; font-style: italic; }
+
+  /* MONTH SECTIONS */
+  .month-block { padding: 0 32px; margin-top: 40px; }
+  .month-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .month-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--gold-dk), transparent);
+  }
+
+  /* WEEK ROW */
+  .week-row {
+    display: flex; align-items: flex-start; gap: 0;
+    margin-bottom: 10px;
+  }
+  .week-date {
+    flex-shrink: 0; width: 100px;
+    padding: 14px 12px 14px 0;
+    text-align: right;
+  }
+  .week-date .day-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; color: var(--grey);
+    text-transform: uppercase;
+  }
+  .week-date .day-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px; font-weight: 900;
+    color: var(--gold); line-height: 1;
+  }
+  .week-date .month-short {
+    font-size: 11px; color: var(--grey); text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .week-line {
+    flex-shrink: 0; width: 2px;
+    background: linear-gradient(180deg, var(--gold-dk), transparent);
+    margin: 14px 18px 0;
+    align-self: stretch; min-height: 100%;
+  }
+  .week-events {
+    flex: 1; display: flex; flex-direction: column; gap: 8px;
+    padding: 6px 0 12px;
+  }
+
+  /* EVENT CARD */
+  .event-card {
+    background: var(--card);
+    border: 1px solid rgba(201,151,42,0.12);
+    border-left: 3px solid var(--gold-dk);
+    border-radius: 3px;
+    text-decoration: none;
+    color: var(--white);
+    display: block;
+    padding: 12px 16px;
+    transition: background 0.15s, border-left-color 0.15s, transform 0.1s;
+    position: relative;
+  }
+  .event-card:hover {
+    background: rgba(201,151,42,0.1);
+    border-left-color: var(--gold);
+    transform: translateX(3px);
+  }
+  .event-card.multi { border-left-color: #5a8a9f; }
+  .event-card.multi:hover { border-left-color: #7ab8d4; }
+  .event-card.highlight { border-left-color: var(--green); }
+  .event-card.highlight:hover { border-left-color: #6ab882; }
+
+  .event-top {
+    display: flex; align-items: baseline;
+    justify-content: space-between; gap: 12px;
+    flex-wrap: wrap;
+  }
+  .event-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--white);
+  }
+  .event-card:hover .event-name { color: var(--gold-lt); }
+  .event-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--gold); flex-shrink: 0;
+  }
+  .event-meta {
+    margin-top: 4px; font-size: 13px; color: var(--grey);
+    display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .event-meta span { display: flex; align-items: center; gap: 4px; }
+  .event-note {
+    margin-top: 6px; font-size: 12px;
+    color: #888; font-style: italic;
+  }
+
+  /* MULTI-LINK */
+  .multi-links {
+    margin-top: 10px;
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .multi-link {
+    display: inline-block;
+    background: rgba(90,138,159,0.15);
+    border: 1px solid rgba(90,138,159,0.3);
+    border-radius: 2px;
+    padding: 5px 12px;
+    font-size: 12px; font-weight: 600;
+    color: #7ab8d4;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.5px;
+  }
+  .multi-link:hover {
+    background: rgba(90,138,159,0.3);
+    color: #a8d8f0;
+  }
+
+  /* PROMO BANNER */
+  .promo-wrap { padding: 0 32px; margin-top: 48px; }
+  .promo-banner {
+    background: linear-gradient(135deg, #1a1200, #0f0c00);
+    border: 1px solid var(--gold-dk);
+    border-left: 4px solid var(--gold);
+    border-radius: 3px;
+    padding: 24px 28px;
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 20px;
+    flex-wrap: wrap;
+  }
+  .promo-text h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--gold);
+  }
+  .promo-text p { font-size: 14px; color: #aaa; margin-top: 4px; }
+  .promo-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 42px; font-weight: 900;
+    color: var(--gold-lt); line-height: 1;
+    text-align: right;
+  }
+  .promo-price small {
+    display: block; font-size: 14px;
+    color: var(--grey); font-weight: 400;
+    text-decoration: line-through;
+  }
+  .promo-price .save {
+    display: block; font-size: 13px;
+    color: #6ab882; font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* OPEN MAT TIP */
+  .tip-wrap { padding: 0 32px; margin-top: 16px; }
+  .tip {
+    background: rgba(74,124,89,0.1);
+    border: 1px solid rgba(74,124,89,0.25);
+    border-left: 3px solid var(--green);
+    border-radius: 3px;
+    padding: 14px 18px;
+    font-size: 13px; color: #aaa; font-style: italic;
+  }
+  .tip strong { color: #6ab882; font-style: normal; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid #222;
+    margin-top: 48px; padding: 20px 32px;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 10px;
+  }
+  footer p { font-size: 12px; color: var(--grey); font-style: italic; }
+  footer a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 600;
+    color: var(--gold); text-decoration: none;
+    letter-spacing: 1px;
+  }
+  footer a:hover { color: var(--gold-lt); }
+
+  @media (max-width: 600px) {
+    header { padding: 28px 20px 22px; }
+    .month-block, .promo-wrap, .tip-wrap, footer { padding-left: 16px; padding-right: 16px; }
+    .week-date { width: 72px; }
+    .week-line { margin: 14px 10px 0; }
+    .promo-price { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">Upcoming Sessions</div>
+  <h1>Upcoming <span>Training</span></h1>
+  <p>July · August · September 2026 &nbsp;·&nbsp; NZ Stunt School</p>
+</header>
+
+<!-- JULY -->
+<div class="month-block">
+  <div class="month-label">July 2026</div>
+
+  <div class="week-row">
+    <div class="week-date">
+      <div class="day-name">Sun</div>
+      <div class="day-num">19</div>
+      <div class="month-short">Jul</div>
+    </div>
+    <div class="week-line"></div>
+    <div class="week-events">
+      <a class="event-card" href="https://www.nzstuntschool.com/event/stunt-open-mat-july-2026/4013/" target="_blank" rel="noopener">
+        <div class="event-top">
+          <div class="event-name">Stunt Open Mat</div>
+          <div class="event-price">$25</div>
+        </div>
+        <div class="event-meta">
+          <span>🕐 1–4pm</span>
+          <span>📍 Hobsonville</span>
+        </div>
+      </a>
+      <a class="event-card" href="https://www.nzstuntschool.com/event/intro-to-parkour-for-stunt-performers/6729/" target="_blank" rel="noopener">
+        <div class="event-top">
+          <div class="event-name">Intro to Parkour for Stunt Performers</div>
+          <div class="event-price">$60</div>
+        </div>
+        <div class="event-meta">
+          <span>🕕 6–8pm</span>
+          <span>📍 Flow</span>
+        </div>
+        <div class="event-note">⚠️ Minimum participants required to go ahead</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-date">
+      <div class="day-name">Sun</div>
+      <div class="day-num">26</div>
+      <div class="month-short">Jul</div>
+    </div>
+    <div class="week-line"></div>
+    <div class="week-events">
+      <div class="event-card highlight" style="cursor:default;">
+        <div class="event-top">
+          <div class="event-name">Urban Combat — Session 1/3 · Skills &amp; Drills</div>
+          <div class="event-price">$60</div>
+        </div>
+        <div class="event-meta">
+          <span>🕧 12:30–4:30pm</span>
+          <span>📍 Hunua</span>
+        </div>
+        <div class="multi-links" style="margin-top:12px;">
+          <a class="multi-link" href="https://www.nzstuntschool.com/event/urban-combat-skills-drills-monthly-training-july-2026/4025/" target="_blank" rel="noopener" style="background:rgba(74,124,89,0.2);border-color:rgba(74,124,89,0.5);color:#6ab882;">📅 Book Session 1 →</a>
+          <a class="multi-link" href="https://www.nzstuntschool.com/event/urban-combat-camera-performance-monthly-training-aug-2026/4026/" target="_blank" rel="noopener" style="background:rgba(74,124,89,0.1);border-color:rgba(74,124,89,0.3);color:#6ab882;">+ Session 2 →</a>
+          <a class="multi-link" href="https://www.nzstuntschool.com/event/urban-combat-scenario-day-monthly-training-sep-2026/6737/" target="_blank" rel="noopener" style="background:rgba(74,124,89,0.1);border-color:rgba(74,124,89,0.3);color:#6ab882;">+ Session 3 →</a>
+        </div>
+        <div class="event-note" style="margin-top:8px;color:#6ab882;">💰 Book all 3 for $160 and save $20</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUGUST -->
+<div class="month-block">
+  <div class="month-label">August 2026</div>
+
+  <div class="week-row">
+    <div class="week-date">
+      <div class="day-name">Sun</div>
+      <div class="day-num">9</div>
+      <div class="month-short">Aug</div>
+    </div>
+    <div class="week-line"></div>
+    <div class="week-events">
+      <div class="event-card multi">
+        <div class="event-top">
+          <div class="event-name">Wires Workshop</div>
+          <div class="event-price"></div>
+        </div>
+        <div class="event-meta">
+          <span>🕙 11am–4pm</span>
+          <span>📍 Otara</span>
+        </div>
+        <div class="multi-links">
+          <a class="multi-link" href="https://www.nzstuntschool.com/event/wires-level-1-workshop-aug-2026/6730/" target="_blank" rel="noopener">Level 1 Workshop →</a>
+          <a class="multi-link" href="https://www.nzstuntschool.com/event/wires-level-1-training-aug-2026/6731/" target="_blank" rel="noopener">Level 1 Training →</a>
+          <a class="multi-link" href="https://www.nzstuntschool.com/event/wires-level-2-workshop-aug-2026/6732/" target="_blank" rel="noopener">Level 2 Workshop →</a>
+          <a class="multi-link" href="https://www.nzstuntschool.com/event/wires-level-2-training-aug-2026/6733/" target="_blank" rel="noopener">Level 2 Training →</a>
+          <a class="multi-link" href="https://www.nzstuntschool.com/event/wires-advanced-training-aug-2026/6734/" target="_blank" rel="noopener">Advanced Training →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-date">
+      <div class="day-name">Sun</div>
+      <div class="day-num">16</div>
+      <div class="month-short">Aug</div>
+    </div>
+    <div class="week-line"></div>
+    <div class="week-events">
+      <a class="event-card" href="https://www.nzstuntschool.com/event/stair-falls-session-aug-2026/6250/" target="_blank" rel="noopener">
+        <div class="event-top">
+          <div class="event-name">Stair Falls</div>
+          <div class="event-price"></div>
+        </div>
+        <div class="event-meta">
+          <span>🕘 9am–12pm</span>
+          <span>📍 Hobsonville</span>
+        </div>
+      </a>
+      <a class="event-card" href="https://www.nzstuntschool.com/event/stunt-open-mat-august-2026/4014/" target="_blank" rel="noopener">
+        <div class="event-top">
+          <div class="event-name">Stunt Open Mat</div>
+          <div class="event-price">$25</div>
+        </div>
+        <div class="event-meta">
+          <span>🕐 1–4pm</span>
+          <span>📍 Hobsonville</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-date">
+      <div class="day-name">Sat</div>
+      <div class="day-num">22</div>
+      <div class="month-short">Aug</div>
+    </div>
+    <div class="week-line"></div>
+    <div class="week-events">
+      <div class="event-card multi">
+        <div class="event-top">
+          <div class="event-name">High Falls — Level 1</div>
+          <div class="event-price"></div>
+        </div>
+        <div class="event-meta">
+          <span>🕙 10am–1pm</span>
+          <span>📍 Counties Gym</span>
+        </div>
+        <div class="event-note">4 jumps required to attend · 2 jumps per workshop minimum</div>
+        <div class="multi-links">
+          <a class="multi-link" href="https://www.nzstuntschool.com/event/%E2%AD%90high-falls-workshop-level-1/6557/" target="_blank" rel="noopener">Workshop →</a>
+          <a class="multi-link" href="https://www.nzstuntschool.com/event/high-falls-training-level-1/6558/" target="_blank" rel="noopener">Training →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-date">
+      <div class="day-name">Sun</div>
+      <div class="day-num">30</div>
+      <div class="month-short">Aug</div>
+    </div>
+    <div class="week-line"></div>
+    <div class="week-events">
+      <a class="event-card highlight" href="https://www.nzstuntschool.com/event/urban-combat-camera-performance-monthly-training-aug-2026/4026/" target="_blank" rel="noopener">
+        <div class="event-top">
+          <div class="event-name">Urban Combat — Session 2/3 · Camera Performance</div>
+          <div class="event-price">$60</div>
+        </div>
+        <div class="event-meta">
+          <span>🕧 12:30–4:30pm</span>
+          <span>📍 Hunua</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- SEPTEMBER -->
+<div class="month-block">
+  <div class="month-label">September 2026</div>
+
+  <div class="week-row">
+    <div class="week-date">
+      <div class="day-name">Sun</div>
+      <div class="day-num">13</div>
+      <div class="month-short">Sep</div>
+    </div>
+    <div class="week-line"></div>
+    <div class="week-events">
+      <a class="event-card" href="https://www.nzstuntschool.com/event/open-stunt-gym-sept-2026/4015/" target="_blank" rel="noopener">
+        <div class="event-top">
+          <div class="event-name">Stunt Open Mat</div>
+          <div class="event-price">$25</div>
+        </div>
+        <div class="event-meta">
+          <span>🕐 1–4pm</span>
+          <span>📍 Hobsonville</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-date">
+      <div class="day-name">Fri</div>
+      <div class="day-num">19</div>
+      <div class="month-short">Sep</div>
+    </div>
+    <div class="week-line"></div>
+    <div class="week-events">
+      <div class="event-card multi">
+        <div class="event-top">
+          <div class="event-name">Tactical — Level 1</div>
+          <div class="event-price"></div>
+        </div>
+        <div class="event-meta">
+          <span>🕙 10am–4pm</span>
+        </div>
+        <div class="multi-links">
+          <a class="multi-link" href="https://www.nzstuntschool.com/event/tactical-workshop-level-1-sept-2026/6735/" target="_blank" rel="noopener">Workshop →</a>
+          <a class="multi-link" href="https://www.nzstuntschool.com/event/tactical-training-level-1-sept-2026/6736/" target="_blank" rel="noopener">Training →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="week-date">
+      <div class="day-name">Sun</div>
+      <div class="day-num">27</div>
+      <div class="month-short">Sep</div>
+    </div>
+    <div class="week-line"></div>
+    <div class="week-events">
+      <a class="event-card highlight" href="https://www.nzstuntschool.com/event/urban-combat-scenario-day-monthly-training-sep-2026/6737/" target="_blank" rel="noopener">
+        <div class="event-top">
+          <div class="event-name">Urban Combat — Session 3/3 · Scenario Day</div>
+          <div class="event-price">$60</div>
+        </div>
+        <div class="event-meta">
+          <span>🕧 12:30–4:30pm</span>
+          <span>📍 Hunua</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- PROMO BANNER -->
+<div class="promo-wrap">
+  <div class="promo-banner">
+    <div class="promo-text">
+      <h3>🥊 Urban Combat Block — All 3 Sessions</h3>
+      <p>Sessions 1, 2 &amp; 3 · Skills &amp; Drills · Camera Performance · Scenario Day<br>
+      Book all three and save $20. Jul 26 · Aug 30 · Sep 27 · Hunua</p>
+    </div>
+    <div class="promo-price">
+      $160
+      <small>$180 separately</small>
+      <span class="save">Save $20</span>
+    </div>
+  </div>
+</div>
+
+<!-- OPEN MAT TIP -->
+<div class="tip-wrap">
+  <div class="tip">
+    💡 <strong>Pro tip:</strong> Use Open Mat sessions to practise and grow between block sessions. Drop in, drill, get reps — that's how skills stick.
+  </div>
+</div>
+
+<footer>
+  <p>*Dates subject to change · Confirmed to enrolled students · Horse lessons weekday</p>
+  <a href="https://nzstuntschool.com" target="_blank">NZSTUNTSCHOOL.COM</a>
+</footer>
+
+</body>
+</html>
